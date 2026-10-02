@@ -20,11 +20,11 @@
         }
     },
     "runArgs": [
-        "--cap-add=NET_ADMIN",
-        "--cap-add=NET_RAW",
         "--read-only",
         "--tmpfs",
         "/tmp",
+        "--tmpfs",
+        "/home:mode=777",
         "--cap-drop=ALL",
         "--security-opt=no-new-privileges"
     ],
