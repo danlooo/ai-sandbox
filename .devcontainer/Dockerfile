@@ -49,6 +49,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   curl \
   ca-certificates \
   wget \
+  ssh \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js 20 (LTS) from NodeSource
