@@ -1,12 +1,13 @@
 // Changes from upstream Anthropic template (github.com/anthropics/claude-code/tree/main/.devcontainer):
 //   - Added: github.copilot and github.copilot-chat extensions
 //   - Removed: claude-code-config volume mount (source=claude-code-config-${devcontainerId},
-//     target=/home/node/.claude) — removed so the pre-configured settings.json baked into
+//     target=/home/vscode/.claude) — removed so the pre-configured settings.json baked into
 //     the image is not shadowed by an empty volume on first run
 //   - Removed: workspaceMount and workspaceFolder fields (devcontainer template format handles this)
 //   - Added: chezmoi via Dockerfile (for dotfiles management)
 //   - Changed: waitFor from postStartCommand to postCreateCommand — VS Code dotfiles (chezmoi apply)
 //     run before the firewall so that plugin installation has internet access
+//   - Changed: user from `node` to `vscode`, base image from node:20 to ubuntu:24.04 (see Dockerfile)
 {
     "name": "Claude Code Sandbox",
     "build": {
@@ -53,13 +54,13 @@
             }
         }
     },
-    "remoteUser": "node",
+    "remoteUser": "vscode",
     "mounts": [
         "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume"
     ],
     "containerEnv": {
         "NODE_OPTIONS": "--max-old-space-size=4096",
-        "CLAUDE_CONFIG_DIR": "/home/node/.claude",
+        "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
         "POWERLEVEL9K_DISABLE_GITSTATUS": "true"
     },
     "postStartCommand": "sudo /usr/local/bin/init-firewall.sh",
